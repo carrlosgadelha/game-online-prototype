@@ -21,9 +21,31 @@ const mousePos = {
     lastClickY: null
 }
 
+const helpCircle = {
+    radius: 3,
+    initialAngle: 0,
+    finalAngle: 2 * Math.PI,
+    color: "blue",
+
+    draw(a, b){
+        ctx.beginPath()
+
+        ctx.arc(
+            a, b,
+            this.radius,
+            this.initialAngle, this.finalAngle
+        )
+
+        ctx.fillStyle = this.color
+        ctx.fill()
+
+        ctx.closePath()
+    }
+}
+
 const gunner = {
-    x: 0,
-    y: 0,
+    x: 250,
+    y: 250,
     width: 40,
     height: 40,
     color: "red",
@@ -40,13 +62,13 @@ const gunner = {
         displayGunnerPosX.innerHTML = this.x
         displayGunnerPosY.innerHTML = this.y
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-
         ctx.fillStyle = this.color
         ctx.fillRect(
             this.x, this.y,
             this.width, this.height
         )
+        helpCircle.draw(this.x, this.y + this.height)
+
     },
     update(){
         /* MOVIMENTAÇAO USANDO WASD */
@@ -92,6 +114,8 @@ function lerp(a, b, t) {
 }
 
 function gameLoop(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
     gunner.draw()
     gunner.update()
 
