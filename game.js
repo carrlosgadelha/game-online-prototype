@@ -1,13 +1,18 @@
 console.log("Game Code")
 
+const displayGunnerPosX = document.getElementById("gunner-x")
+const displayGunnerPosY = document.getElementById("gunner-y")
+const displayMousePosX = document.getElementById("mouse-x")
+const displayMousePosY = document.getElementById("mouse-y")
+
+const canvas = document.getElementById("game-canvas")
+const ctx = canvas.getContext("2d")
+
 function generateRandomNumber(size){
     let randomNumber = Math.round(Math.random() * size)
 
     return randomNumber
 }
-
-const canvas = document.getElementById("game-canvas")
-const ctx = canvas.getContext("2d")
 
 const mousePos = {
     x: 0,
@@ -32,6 +37,9 @@ const gunner = {
     isPressD: false,
 
     draw(){
+        displayGunnerPosX.innerHTML = this.x
+        displayGunnerPosY.innerHTML = this.y
+
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
         ctx.fillStyle = this.color
@@ -59,16 +67,16 @@ const gunner = {
         /* MOVIMENTAÇAO USANDO O CLICK DO MOUSE */
         if(mousePos.lastClickX && mousePos.lastClickY){
             if(this.x < mousePos.lastClickX){
-                this.x = lerp(this.x, mousePos.lastClickX - 20, 0.03)
+                this.x = lerp(this.x, mousePos.lastClickX - 20, 0.1)
             }
             if(this.x > mousePos.lastClickX){
-                this.x = lerp(this.x, mousePos.lastClickX - 40, 0.03)
+                this.x = lerp(this.x, mousePos.lastClickX - 40, 0.1)
             }
             if(this.y < mousePos.lastClickY){
-                this.y = lerp(this.y, mousePos.lastClickY - 20, 0.03)
+                this.y = lerp(this.y, mousePos.lastClickY - 20, 0.1)
             }
             if(this.y > mousePos.lastClickY){
-                this.y = lerp(this.y, mousePos.lastClickY - 0, 0.03)
+                this.y = lerp(this.y, mousePos.lastClickY - 0, 0.1)
             }
             if(Math.abs(this.x - mousePos.lastClickX) < 1){
                 mousePos.lastClickX = null
@@ -86,6 +94,9 @@ function lerp(a, b, t) {
 function gameLoop(){
     gunner.draw()
     gunner.update()
+
+    displayMousePosX.innerHTML = Math.floor(mousePos.x)
+    displayMousePosY.innerHTML = mousePos.y
 
     requestAnimationFrame(gameLoop)
 }

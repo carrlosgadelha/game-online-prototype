@@ -10,7 +10,15 @@
   <header>
     <h1>Game Design</h1>
   </header>
-  <canvas id="game-canvas" height="520px" width="520px"></canvas>
+  <div class="screen">
+    <canvas id="game-canvas" height="520px" width="520px"></canvas>
+    <div class="logs">
+      <p>Gunner position x: <span id="gunner-x">0</span></p>
+      <p>Gunner position y: <span id="gunner-y">0</span><br><br><br></p>
+      <p>Mouse position x: <span id="mouse-x">0</span></p>
+      <p>Mouse position y: <span id="mouse-y">0</span></p>
+    </div>
+  </div>
   <script src="./game.js"></script>
 </body>
 </html>
